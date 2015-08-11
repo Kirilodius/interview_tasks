@@ -9,12 +9,12 @@ class Item:
 
 
 class Node:
-    def __init__(self, level, bound, items, takenItems, maxWeight):
+    def __init__(self, level, items, takenItems, maxWeight):
         self.level = level
         self.allItems = items
         self.maxWeight = maxWeight
         self.taken = takenItems
-        self.bound = bound
+        self.bound = [item.value for item in takenItems]
         
     
     def getWeight(self):
@@ -58,7 +58,7 @@ def knapsackSolve(items, maxWeight):
     items.sort(key=lambda item: item.getRatio(), reverse=True)
 
     tree = []    
-    startNode = Node(0, 0, items, [], maxWeight)
+    startNode = Node(0, items, [], maxWeight)
     bestNode = copy.deepcopy(startNode)
     
     startNode.calcBound()
@@ -68,7 +68,7 @@ def knapsackSolve(items, maxWeight):
         cNode = tree.pop()
         
         if cNode.bound > bestNode.getValue() and cNode.level < len(items):
-            withNode = Node(cNode.level + 1, cNode.bound, items, cNode.taken[:], maxWeight)
+            withNode = Node(cNode.level + 1, items, cNode.taken[:], maxWeight)
             itemToAdd = items[cNode.level]
         
             if (withNode.getWeight() + itemToAdd.weight) <= maxWeight:
@@ -81,7 +81,7 @@ def knapsackSolve(items, maxWeight):
                 if withNode.bound > bestNode.getValue():
                     tree.append(withNode)
             
-            withoutNode = Node(cNode.level + 1, cNode.bound, items, cNode.taken[:], maxWeight)
+            withoutNode = Node(cNode.level + 1, items, cNode.taken[:], maxWeight)
             withoutNode.calcBound()
             if withoutNode.bound > bestNode.getValue():
                 tree.append(withoutNode)
