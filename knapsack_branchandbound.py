@@ -6,6 +6,12 @@ class Item:
     
     def getRatio(self):
         return self.value/float(self.weight)
+        
+    def __str__(self):
+        return self.name
+        
+    def __repr__(self):
+        return self.name
 
 
 class Node:
@@ -14,8 +20,8 @@ class Node:
         self.allItems = items
         self.maxWeight = maxWeight
         self.taken = takenItems
-        self.bound = [item.value for item in takenItems]
-        
+        self.bound = sum([item.value for item in takenItems])
+
     
     def getWeight(self):
         return sum([item.weight for item in self.taken])
@@ -44,6 +50,7 @@ class Node:
         if item:
             self.bound += (self.maxWeight - cWeight) * (item.value / item.weight)
 
+
 import copy
 
 def knapsackSolve(items, maxWeight):
@@ -61,11 +68,12 @@ def knapsackSolve(items, maxWeight):
     startNode = Node(0, items, [], maxWeight)
     bestNode = copy.deepcopy(startNode)
     
+    
     startNode.calcBound()
     tree.append(startNode)
     
     while len(tree) > 0:
-        cNode = tree.pop()
+        cNode = tree.pop(0)
         
         if cNode.bound > bestNode.getValue() and cNode.level < len(items):
             withNode = Node(cNode.level + 1, items, cNode.taken[:], maxWeight)
@@ -91,4 +99,4 @@ def knapsackSolve(items, maxWeight):
         print item.name
 
     
-knapsackSolve([Item("1", 45, 3), Item("2", 30, 5), Item("3", 45, 9), Item("4", 10, 5), Item("4", 100, 5)], 16)
+knapsackSolve([Item("1", 45, 3), Item("2", 30, 5), Item("3", 45, 9), Item("4", 10, 5)], 16)
