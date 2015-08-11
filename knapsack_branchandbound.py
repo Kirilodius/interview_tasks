@@ -20,7 +20,7 @@ class Node:
         self.allItems = items
         self.maxWeight = maxWeight
         self.taken = takenItems
-        self.bound = sum([item.value for item in takenItems])
+        self.bound = self.getValue()
 
     
     def getWeight(self):
