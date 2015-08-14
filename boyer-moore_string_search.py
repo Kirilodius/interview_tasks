@@ -6,7 +6,8 @@ def boyer_moore_search(pat, txt):
     prefixes = pref_func(pat)
     rprefixes = pref_func(pat[::-1])
     pref_table = []
-    for i in prefixes:
+    
+    for i in range(len(pat) + 1):
         pref_table.append(prefixes[-1])
     
     for i in range(1, len(pat)):
