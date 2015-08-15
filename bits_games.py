@@ -25,3 +25,18 @@ def add(x, y):
         ty >>= 1
         
     return sum | carryIn
+    
+def devide(div, divs):
+    result = 0
+    power = 32
+    pdivs = divs << power
+    
+    while div >= divs:
+        while pdivs > div:
+            pdivs >>= 1
+            power -= 1
+        
+        result += 1 << power
+        div -= pdivs
+    
+    return result
