@@ -8,7 +8,11 @@ def maxProfit(quotes):
         
 maxProfit([310, 315, 275, 295, 260, 270, 290, 230, 255, 250])
 
-
+"""
+Takes an array of int and return the length of longest subarray equal values
+@note: fromt 310, 315, 275, 275, 275, 270, 290, 230, 255, 250 it returns 3 - as the length of longest sequance of same keys
+@arr: array
+"""
 def maxLength(arr):
     max_length = 0
     p_i = arr[0]
