@@ -15,18 +15,11 @@ def find(arr, val):
         		sIdx = pIdx + 1
 
         else:
-            if arr[sIdx] < p:
-                if arr[sIdx] <= val and p >= val:
-                    eIdx = pIdx
-                else:
-                    sIdx = pIdx                
+            if arr[sIdx] <= val:
+            	return find(arr[:pIdx], val)
             else:
-                if arr[sIdx] >= val and p <= val:
-                    sIdx = pIdx
-                else:
-                    eIdx = pIdx
+            	return find(arr[pIdx + 1:], val)
     return -1
-
 
 
 
@@ -36,6 +29,12 @@ print find([4, 5, 6, 1, 2], 3)
 print find([4, 5, 6, 1, 2], 4)
 print find([4, 5, 6, 1, 2], 5)
 print find([4, 5, 6, 1, 2], 6)
+
+print find([4, 5, 0, 1, 2], 4)
+print find([4, 5, 0, 1, 2], 5)
+
+print find([4, 5, 0, 1, 2], 1)
+print find([4, 5, 0, 1, 2], 2)
 
 print find([1, 2, 3, 4, 5, 6], 6)
 print find([1, 2, 3, 4, 5, 6], 1)
