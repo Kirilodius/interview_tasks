@@ -1,26 +1,27 @@
-def find(arr, val):
-    sIdx = 0
-    eIdx = len(arr) - 1
-    
-    while sIdx <= eIdx:
-        pIdx = sIdx + ((eIdx - sIdx) / 2)
-        p = arr[pIdx]
-        if p == val:
-            return pIdx
-        
-        if p >= arr[sIdx] and p <= arr[eIdx]:
-        	if p > val:
-        		eIdx = pIdx
-        	else:
-        		sIdx = pIdx + 1
+def find(nums, target):
+    left = 0;
+    right= len(nums)-1;
+ 
+    while left<=right:
+        mid = left + (right-left)/2
+        if target==nums[mid]:
+            return mid
+ 
+        if nums[left] <= nums[mid]:
+            if nums[left] <= target and target < nums[mid]:
+                right=mid-1
+            else:
+                left=mid+1
 
         else:
-            if arr[sIdx] <= val:
-            	return find(arr[:pIdx], val)
+            if nums[mid]<target and target<=nums[right]: 
+            	left=mid+1
             else:
-            	return find(arr[pIdx + 1:], val)
-    return -1
+                right=mid-1
+        
 
+ 
+    return -1;
 
 
 print find([4, 5, 6, 1, 2], 1)
@@ -29,6 +30,9 @@ print find([4, 5, 6, 1, 2], 3)
 print find([4, 5, 6, 1, 2], 4)
 print find([4, 5, 6, 1, 2], 5)
 print find([4, 5, 6, 1, 2], 6)
+
+
+print find([4, 5, 5, 6, 2], 6)
 
 print find([4, 5, 0, 1, 2], 4)
 print find([4, 5, 0, 1, 2], 5)
